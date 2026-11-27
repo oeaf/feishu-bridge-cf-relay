@@ -1,0 +1,25 @@
+[Unit]
+# Feishu bridge daemon for ONE bridge. Replace every <SLUG> with the
+# bridge slug (charset [a-z0-9-]) and install as
+# /etc/systemd/system/feishu-bridge-<SLUG>.service
+# One Feishu app = one daemon. Never run two consumers for one app.
+Description=Feishu bridge daemon (<SLUG>)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=feishu-bridge
+Group=feishu-bridge
+Environment=FEISHU_BRIDGE_HOME=/var/lib/feishu-bridge/<SLUG>
+ExecStart=/opt/feishu-bridge/.venv/bin/python -u /opt/feishu-bridge/bridge/supervisor.py --credentials-file /etc/feishu-bridge/<SLUG>/credentials.json
+# Exit code 3 = daemon's WS-stale self-exit: a NORMAL restart request,
+# not a failure. Listed here so systemd does not apply failure handling.
+SuccessExitStatus=3
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

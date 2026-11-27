@@ -1,0 +1,22 @@
+[Unit]
+# Server-side relay sync for ONE bridge: pushes queue/inbox + daemon
+# heartbeat to the Worker, pulls queue/outbox back. Replace every
+# <SLUG> and install as /etc/systemd/system/feishu-relay-server-<SLUG>.service
+# Relay config: /etc/feishu-bridge/<SLUG>/relay.json (0600 if it holds
+# the token inline; prefer "relay_token_file" pointing at a 0600 file).
+Description=Feishu bridge relay sync, server side (<SLUG>)
+After=network-online.target feishu-bridge-<SLUG>.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=feishu-bridge
+Group=feishu-bridge
+ExecStart=/opt/feishu-bridge/.venv/bin/python -u /opt/feishu-bridge/relay/relay-sync.py --mode server --config /etc/feishu-bridge/<SLUG>/relay.json --interval 30
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

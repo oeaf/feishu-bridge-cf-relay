@@ -1,0 +1,8 @@
+[Unit]
+# Companion to feishu-watchdog-<SLUG>.timer. Replace every <SLUG> and
+# install both units under /etc/systemd/system/.
+Description=Feishu bridge connection watchdog (<SLUG>)
+
+[Service]
+Type=oneshot
+ExecStart=/opt/feishu-bridge/feishu-watchdog-<SLUG>.sh
