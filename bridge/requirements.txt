@@ -1,0 +1,7 @@
+# lark-oapi: the daemon's _ws_connect_kwargs wrapper is compatible with
+# both 1.7.3 (0-arg) and 1.9.0 (1-arg connection_headers). Do not pin to
+# a single patch version across machines; verify after install with:
+#   python -c "import lark_oapi; print(lark_oapi.__version__)"
+lark-oapi>=1.7.3
+# Only needed by scan_create_app.py for terminal QR rendering.
+qrcode[pil]>=7.4

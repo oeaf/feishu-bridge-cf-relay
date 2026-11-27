@@ -1,0 +1,1 @@
+{"allowed_chat_ids":["oc_xxx"],"allowed_open_ids":["ou_xxx"],"api_host":"open.feishu.cn","app_id":"cli_xxx","base":"feishu","fallback_poll_interval_seconds":90,"fallback_poll_window_seconds":900,"poll_interval_seconds":20,"queue_dir":"queue","require_mention_in_group":true,"secret_provider":"transient","ws_stale_exit_seconds":300}
